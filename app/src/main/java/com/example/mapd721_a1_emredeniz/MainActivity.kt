@@ -85,7 +85,68 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        
+        // Buttons
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth().padding(15.dp)
+        ) {
+            // Load button
+            Button(
+                onClick = {
+                    // Load data from Datastore if exist
+                    username = savedName.value ?: ""
+                    email = savedEmail.value ?: ""
+                    id = savedId.value ?: ""
+                    Toast.makeText(context, "LOADED", Toast.LENGTH_SHORT).show()
+                },
+                colors = ButtonDefaults.buttonColors(Color(235, 186, 150))
+            ) {
+                Text(
+                    text = "Load",
+                    fontSize = 20.sp,
+                    color = Color.Black
+                )
+            }
+
+            // Save button
+            Button(
+                onClick = {
+                    // Save data to Datastore
+                    scope.launch {
+                        dataStore.saveInfo(username, email, id)
+                        Toast.makeText(context, "SAVED", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(Color(34, 210, 9))
+            ){
+                Text(
+                    text = "Save",
+                    fontSize = 20.sp,
+                    color = Color.Black
+                )
+            }
+
+            // Clear button
+            Button(
+                onClick = {
+                    username = ""
+                    email = ""
+                    id = ""
+                    // Clear data in Datastore
+                    scope.launch {
+                        dataStore.clearInfo()
+                        Toast.makeText(context, "CLEARED", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(Color(250, 120, 120))
+            ) {
+                Text(
+                    text = "Clear",
+                    fontSize = 20.sp,
+                    color = Color.Black
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(400.dp))
 
