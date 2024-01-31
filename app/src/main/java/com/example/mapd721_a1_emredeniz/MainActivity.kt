@@ -159,7 +159,7 @@ fun MainScreen() {
                 .background(Color(230, 230, 230))
         ) {
             Text(
-                text = "Emre Deniz" + "\n" + "301371047",
+                text = (savedName.value ?: "") + "\n" + (savedEmail.value ?: "") + "\n" + (savedId.value ?: ""),
                 color = Color.Black,
                 fontSize = 20.sp,
                 modifier = Modifier.padding(15.dp)
